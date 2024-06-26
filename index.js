@@ -134,15 +134,6 @@ async function processData(jsonData, postingAuths) {
     } else if (data.action === "reply_to_offer") {
       await replyToOffer(data, user);
     }
-    // if (data.action === "create_game") {
-    //   await createGame(data, user);
-    // } else if (data.action === "request_join") {
-    //   await requestJoin(data, user);
-    // } else if (data.action === "accept_request") {
-    //   await acceptRequest(data, user);
-    // } else if (data.action === "play") {
-    //   await play(data, user);
-    // }
     // Create Posting
     // Delete Posting
     // Create Offer
