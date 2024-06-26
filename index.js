@@ -67,7 +67,11 @@ async function processBlock(blockNum) {
         for (const op of ops) {
           //   console.log(op);
           if (op && op[0] === "custom_json" && op[1].id === "sproutapp") {
-            await processData(op[1].json, op[1].required_posting_auths);
+            // console.log(JSON.stringify(op, null, 2));
+            await processData(op[1].json, [
+              ...op[1].required_posting_auths,
+              ...op[1].required_auths,
+            ]);
           }
         }
       }
@@ -219,7 +223,7 @@ async function createOffer(data, user) {
   //     action: "create_offer",
   //     postingID: "",
   //     offerID: "",
-  //     offerer: "",
+  //     offererDisplay: "",
   //     amount: 0,
   //     offererContactInfo: "",
   //   }
@@ -243,7 +247,8 @@ async function createOffer(data, user) {
   const result = await offers.insertOne({
     postingID: data.postingID,
     offerID: data.offerID,
-    offerer: data.offerer,
+    offerer: user,
+    offererDisplay: data.offererDisplay,
     amount: data.amount,
     offererContactInfo: data.offererContactInfo,
     status: "open",
